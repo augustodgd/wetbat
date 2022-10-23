@@ -8,7 +8,7 @@ import {
   Td,
   Th,
   Thead,
-  Tr
+  Tr,
 } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import { Link as RouterLink } from 'react-router-dom';

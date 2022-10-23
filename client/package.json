@@ -57,6 +57,7 @@
     "collectCoverageFrom": [
       "!./src/index.tsx",
       "!**/*.snap"
-    ]
+    ],
+    "resetMocks": false
   }
 }

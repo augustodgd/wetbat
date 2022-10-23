@@ -1,17 +1,23 @@
-const Contacts = {
-  Rodrigo: {
+import Contact from './Contact';
+
+const Contacts: Record<string, Contact> = {
+  RODRIGO: {
+    id: 'RODRIGO',
     name: 'Rodrigo Tomas',
     email: 'rodrigotomascastro@wetbat.com',
   },
-  Lorenzo: {
+  LORENZO: {
+    id: 'LORENZO',
     name: 'Lorenzo Kaique',
     email: 'lorenzo_kaique_assuncao@wetbat.com',
   },
-  Gabriel: {
+  GABRIEL: {
+    id: 'GABRIEL',
     name: 'Gabriel Bruno',
     email: 'gabrielbrunocavalcanti@wetbat.com',
   },
-  Ian: {
+  IAN: {
+    id: 'IAN',
     name: 'Ian Mateus',
     email: 'ian.mateus.monteiro@wetbat.com',
   },

@@ -1,7 +1,7 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from './components/Header/Header';
-import DashboardPage from './pages/DashboardPage.tsx/DashboardPage.';
+import DashboardPage from './pages/DashboardPage.tsx/DashboardPage';
 import QuoteDetailsPage from './pages/QuoteDetailsPage/QuoteDetailsPage';
 import theme from './theme';
 

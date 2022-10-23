@@ -46,7 +46,7 @@ const tableColumns: TableColumn<Quote>[] = [
   },
   {
     title: 'Transportation',
-    selector: (quote) => String(quote.transportation),
+    selector: (quote) => quote.transportation.description,
     testid: 'quote-transportation',
   },
 ];

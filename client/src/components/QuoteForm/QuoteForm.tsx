@@ -14,12 +14,29 @@ import {
   Select,
   SimpleGrid,
 } from '@chakra-ui/react';
-import Airports from '../../domain/Airports.data';
+import { useEffect, useState } from 'react';
+import Airport from '../../domain/Airport';
 import Transportation from '../../domain/Transportation';
+import AirportService from '../../services/airport/AirportService';
+import TransportationService from '../../services/transportation/TransportationService';
 
 export default function QuoteForm() {
-  const airports = Object.values(Airports);
-  const transportations = Object.values(Transportation);
+  const [transportations, setTransportations] = useState<Transportation[]>([]);
+  const [airports, setAirports] = useState<Airport[]>([]);
+
+  useEffect(() => {
+    const fetchAirports = async () => {
+      const airports = await AirportService.listAll();
+      setAirports(airports);
+    };
+    const fetchTransportations = async () => {
+      const transportations = await TransportationService.listAll();
+      setTransportations(transportations);
+    };
+
+    fetchAirports();
+    fetchTransportations();
+  }, []);
 
   return (
     <Container
@@ -78,7 +95,9 @@ export default function QuoteForm() {
           <FormLabel>Transportation</FormLabel>
           <Select>
             {transportations.map((transportation) => (
-              <option key={transportation}>{transportation}</option>
+              <option key={transportation.id}>
+                {transportation.description}
+              </option>
             ))}
           </Select>
         </FormControl>
