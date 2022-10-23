@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Header /> should match snapshot 1`] = `
+<div
+  class="css-zw7a3b"
+  data-testid="header"
+>
+  <img
+    alt="WetBat"
+    src="/wetbat-logo-white.png"
+    width="135"
+  />
+</div>
+`;
