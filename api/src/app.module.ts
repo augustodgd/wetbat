@@ -1,12 +1,27 @@
 import { Module } from '@nestjs/common';
-import { AirportController, AirportService } from './domain/airport';
-import { QuoteController, QuoteService } from './domain/quote';
-import TransportationController from './domain/transportation/transportation.controller';
-import TransportationService from './domain/transportation/transportation.service';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import DomainModule from './domain/domain.module';
 
 @Module({
-  imports: [],
-  controllers: [AirportController, QuoteController, TransportationController],
-  providers: [AirportService, QuoteService, TransportationService],
+  imports: [
+    DomainModule,
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get<string>('POSTGRES_HOST'),
+        port: parseInt(configService.get<string>('POSTGRES_PORT')),
+        username: configService.get<string>('POSTGRES_USER'),
+        password: configService.get<string>('POSTGRES_PASSWORD'),
+        database: configService.get<string>('POSTGRES_DBNAME'),
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        autoLoadEntities: true,
+        synchronize: true,
+      }),
+      inject: [ConfigService],
+    }),
+  ],
 })
 export class AppModule {}

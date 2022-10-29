@@ -1,14 +1,29 @@
 import { Injectable } from '@nestjs/common';
-import quotes from './data/quotes.data';
-import Quote from './interfaces/quote.interface';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import Quote from './quote';
+import QuoteEntity from './quote.entity';
 
 @Injectable()
 export default class QuoteService {
-  listAll(): Quote[] {
-    return quotes;
+  @InjectRepository(QuoteEntity)
+  private quoteRepository: Repository<QuoteEntity>;
+
+  listAll(): Promise<Quote[]> {
+    return this.quoteRepository.find({
+      relations: {
+        departure: true,
+        destination: true,
+        transportation: true,
+      },
+    });
   }
 
-  getById(id: string): Quote | undefined {
-    return quotes.find((quote) => quote.id === id);
+  getById(id: string): Promise<Quote | null> {
+    return this.quoteRepository.findOneBy({ id });
+  }
+
+  create(quote: Quote): Promise<Quote> {
+    return this.quoteRepository.save(quote);
   }
 }

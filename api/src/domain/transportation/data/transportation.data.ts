@@ -1,4 +1,4 @@
-import Transportation from '../interfaces/transportation.interface';
+import Transportation from '../transportation';
 
 const Transportations: Record<string, Transportation> = {
   RENTAL_CAR: { id: 'RENTAL_CAR', description: 'Rental Car' },

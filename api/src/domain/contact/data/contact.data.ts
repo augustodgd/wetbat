@@ -1,4 +1,4 @@
-import Contact from '../interfaces/contact.interface';
+import Contact from '../contact';
 
 const Contacts: Record<string, Contact> = {
   RODRIGO: {
