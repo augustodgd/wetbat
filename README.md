@@ -14,14 +14,14 @@ The back-end is a NestJS API, found on the `/api` directory. Postgres is used as
 
 ## Setup
 
-1. Create a `.env` file at /api, filling the following keys:
+1. Create a `.env` file at /api, with the following keys, replacing the user and password:
 
 ```
-POSTGRES_USER=
-POSTGRES_PASSWORD=
-POSTGRES_PORT=
-POSTGRES_HOST=
-POSTGRES_DBNAME=
+POSTGRES_USER=YOUR_USER
+POSTGRES_PASSWORD=YOUR_PASSWORD
+POSTGRES_PORT=5432
+POSTGRES_HOST=localhost
+POSTGRES_DBNAME=wetbat
 ```
 
 2. Run the DB, at /api:
