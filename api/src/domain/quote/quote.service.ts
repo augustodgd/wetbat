@@ -20,7 +20,14 @@ export default class QuoteService {
   }
 
   getById(id: string): Promise<Quote | null> {
-    return this.quoteRepository.findOneBy({ id });
+    return this.quoteRepository.findOne({
+      where: { id },
+      relations: {
+        departure: true,
+        destination: true,
+        transportation: true,
+      },
+    });
   }
 
   create(quote: Quote): Promise<Quote> {

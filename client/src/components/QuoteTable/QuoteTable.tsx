@@ -24,7 +24,7 @@ export interface TableColumn<T> {
 const tableColumns: TableColumn<Quote>[] = [
   {
     title: 'Name',
-    selector: (quote) => quote.contact.name,
+    selector: (quote) => quote.contactName,
   },
   {
     title: 'Departure',

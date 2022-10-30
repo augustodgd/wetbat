@@ -1,8 +1,10 @@
 import { Container, Grid, GridItem, Heading } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { parse } from 'date-fns';
+import { FormEvent, useEffect, useState } from 'react';
 import QuoteForm from '../../components/QuoteForm/QuoteForm';
 import QuoteTable from '../../components/QuoteTable/QuoteTable';
 import Quote from '../../domain/Quote';
+import QuoteDTO from '../../domain/Quote.dto';
 import QuoteService from '../../services/quote/QuoteService';
 
 function QuotesSection() {
@@ -36,6 +38,29 @@ function QuotesSection() {
 }
 
 export default function DashboardPage() {
+  const onSubmitQuoteForm = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formatDate = (dateInput: string): string =>
+      parse(dateInput, 'yyyy-MM-dd', new Date()).toISOString();
+
+    const formData = new FormData(e.currentTarget);
+
+    const quoteDTO: QuoteDTO = {
+      contactEmail: formData.get('contactEmail') as string,
+      contactName: formData.get('contactName') as string,
+      departureId: formData.get('departureId') as string,
+      destinationId: formData.get('destinationId') as string,
+      departureDate: formatDate(formData.get('departDate') as string),
+      returnDate: formatDate(formData.get('returnDate') as string),
+      numberOfTravelers: Number(formData.get('numberOfTravelers')),
+      transportationId: formData.get('transportationId') as string,
+    };
+
+    await QuoteService.create(quoteDTO);
+
+    window.location.reload();
+  };
   return (
     <Grid
       data-testid="dashboardPage"
@@ -44,7 +69,7 @@ export default function DashboardPage() {
       padding={10}
     >
       <GridItem>
-        <QuoteForm />
+        <QuoteForm onSubmit={onSubmitQuoteForm} />
       </GridItem>
 
       <GridItem>

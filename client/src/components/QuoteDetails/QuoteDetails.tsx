@@ -11,12 +11,12 @@ interface QuoteDetailsProps {
 const tableColumns: TableColumn<Quote>[] = [
   {
     title: 'Name',
-    selector: (quote) => quote.contact.name,
+    selector: (quote) => quote.contactName,
     testid: 'quote-name',
   },
   {
     title: 'Email',
-    selector: (quote) => quote.contact.email,
+    selector: (quote) => quote.contactEmail,
     testid: 'quote-email',
   },
   {

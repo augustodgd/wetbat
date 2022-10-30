@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import quotes from '../../domain/Quotes.data';
 import QuoteService from '../../services/quote/QuoteService';
 import QuoteDetailsPage from './QuoteDetailsPage';
 
@@ -54,7 +55,7 @@ describe('<QuoteDetailsPage />', () => {
   });
 
   it('should render "Quote not found" message if quote doesn\'t exist', async () => {
-    jest.spyOn(QuoteService, 'getById').mockResolvedValue(undefined);
+    jest.spyOn(QuoteService, 'getById').mockResolvedValue(quotes[0]);
 
     render(
       <MemoryRouter>

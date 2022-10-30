@@ -1,4 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
+import Airports from '../../domain/Airports.data';
+import Transportations from '../../domain/Transportation.data';
 import AirportService from '../../services/airport/AirportService';
 import TransportationService from '../../services/transportation/TransportationService';
 import QuoteForm from './QuoteForm';
@@ -19,7 +21,7 @@ describe('<QuoteForm />', () => {
     '%s fields',
     (fieldType, fieldLabels) => {
       it.each(fieldLabels)('should render %s field', async (label) => {
-        render(<QuoteForm />);
+        render(<QuoteForm onSubmit={jest.fn()} />);
 
         await waitFor(() => expect(AirportService.listAll).toBeCalled());
         await waitFor(() => expect(TransportationService.listAll).toBeCalled());
@@ -33,12 +35,28 @@ describe('<QuoteForm />', () => {
 
   describe('date fields', () => {
     it.each(dateFields)('should render %s field', async (label) => {
-      render(<QuoteForm />);
+      render(<QuoteForm onSubmit={jest.fn()} />);
 
       await waitFor(() => expect(AirportService.listAll).toBeCalled());
       await waitFor(() => expect(TransportationService.listAll).toBeCalled());
 
       expect(screen.getByLabelText(label)).toBeInTheDocument();
+    });
+  });
+
+  describe('select options', () => {
+    it('should render select options', async () => {
+      render(<QuoteForm onSubmit={jest.fn()} />);
+
+      expect(
+        await screen.findAllByRole('option', { name: Airports.GRU.toString() }),
+      ).toHaveLength(2);
+
+      expect(
+        await screen.findAllByRole('option', {
+          name: Transportations.RENTAL_CAR.description,
+        }),
+      ).toHaveLength(1);
     });
   });
 });
